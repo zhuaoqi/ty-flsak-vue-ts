@@ -1,0 +1,17 @@
+.app-layout__aside .el-menu {
+  border-right: none;
+  .el-menu-item{
+    font-size: 13px;
+    height: 45px;
+    line-height: 45px;
+  }
+  .el-menu-item.is-active {
+    background: linear-gradient(to right, $--color-blue, $--color-blue 10px, $--color-blue-lighter 0);
+  }
+  .el-menu-item-group__title{
+    padding: 17px 0 8px 30px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,30 @@
+@mixin unselectable() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+//绝对定位居中布局，默认撑满容器
+@mixin overlay($offset: 0) {
+  position: absolute;
+  bottom: $offset;
+  left: $offset;
+  right: $offset;
+  top: $offset;
+}
+
+//绝对定位居中布局
+@mixin center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

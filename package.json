@@ -1,0 +1,50 @@
+{
+  "name": "vue-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "concurrently \"vue-cli-service serve\" \"python serve/run.py\"",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/jquery": "^3.5.3",
+    "@types/node": "^14.11.8",
+    "axios": "^0.21.0",
+    "codelyzer": "^6.0.1",
+    "concurrently": "^5.3.0",
+    "core-js": "^3.6.5",
+    "crypto-js": "^4.0.0",
+    "element-ui": "^2.13.2",
+    "jquery": "^3.5.1",
+    "moment": "^2.29.1",
+    "particleground-light": "^1.0.6",
+    "pug": "^3.0.0",
+    "pug-plain-loader": "^1.0.0",
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.4",
+    "vue": "^2.6.11",
+    "vue-class-component": "^7.2.3",
+    "vue-property-decorator": "^8.4.2",
+    "vue-router": "^3.2.0",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/crypto-js": "^4.0.1",
+    "@types/mocha": "^5.2.4",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-unit-mocha": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/test-utils": "^1.0.3",
+    "chai": "^4.1.2",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "typescript": "^4.0.3",
+    "vue-template-compiler": "^2.6.11"
+  }
+}

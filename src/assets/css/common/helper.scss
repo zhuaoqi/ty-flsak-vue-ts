@@ -1,0 +1,18 @@
+.clearfix:after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.emphasis{
+  font-size: 14px;
+  font-weight: bold;
+}
+.red{
+  color: $--color-red;
+}
+
+.wind-label{
+  padding-right: 8px;
+  font-size: 12px;
+}

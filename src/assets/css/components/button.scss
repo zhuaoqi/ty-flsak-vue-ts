@@ -1,0 +1,46 @@
+.el-button{
+  border-radius: 4px;
+  min-width: 80px;
+  height: 32px;
+  font-size: 13px;
+}
+.el-button span{
+  cursor: pointer;
+}
+.el-button--default:hover,.el-button--default:focus {
+  background-color: #CCE6FF;
+  border-color: #CCE6FF;
+}
+.el-button--primary, .el-button--default.el-button--primary{
+  border-color: #0080FF;
+  background:#0080FF;  
+}
+.el-button--primary:hover,.el-button--primary:focus{
+  background-color: #3399FF;
+  border-color: #3399FF
+}
+.el-button--primary.is-active,.el-button--primary:active{
+  background-color: #0073E6!important;
+  border-color: #0073E6!important;
+  color: #CCE6FF!important
+}
+
+
+.el-button--default.is-active,.el-button--default:active {
+  background-color: #0073E6!important;
+  border-color: #0073E6!important;
+  color: #CCE6FF!important
+}
+
+.el-button.is-disabled,.el-button.is-disabled:hover,.el-button.is-disabled:active,.el-button.is-disabled:focus{
+  background-color: #E1E9F0;
+  border-color: #EBF0F5;
+}
+.el-button.is-disabled span{
+  cursor: inherit;
+}
+.search-btn{
+  width: 50px;
+  height: 30px;
+}
+

@@ -1,0 +1,47 @@
+body {
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(246,247,251);
+  font-size: $--size-base;
+}
+
+a {
+  color: $--color-blue;
+  cursor: pointer;
+  &:hover{
+    color: $--color-blue-light;
+  }
+}
+.el-pagination{text-align: center}
+
+h1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+/*滚动条样式*/
+::-webkit-scrollbar {
+  width: 6px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: #fff;
+  //border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e0e0f0;
+  border-radius: 4px;
+  //border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #cccce0;
+}

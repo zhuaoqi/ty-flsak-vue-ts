@@ -1,0 +1,111 @@
+.el-input--small .el-input__inner,
+.el-textarea__inner {
+  // background-color: #f5f7fa;
+  background-color: #ffffff;
+  border-color: #e1e9f0;
+  color: #333;
+  &:hover {
+    border-color: #ebf0f4;
+  }
+  &:focus {
+    color: #333;
+    border-color: #0080ff;
+  }
+}
+.el-input.is-disabled .el-input__inner{
+  //  background-color: #8e9299;
+   background-color: #f5f7fa;
+   color: #666;
+   border-color: #e1e9f0;
+}
+.el-input-group__append,
+.el-input-group__prepend {
+  border-color: #ebf0f4;
+  &:hover {
+    border-left: 1px solid #dcdfe6;
+    border-color: #dcdfe6;
+  }
+}
+
+input::-webkit-input-placeholder,
+input.el-input__inner::-webkit-input-placeholder,
+.el-textarea__inner::-webkit-input-placeholder {
+  color: $--color-text-placeholder;
+}
+
+input::-moz-placeholder,
+input.el-input__inner::-webkit-input-placeholder,
+.el-textarea__inner::-webkit-input-placeholder {
+  color: $--color-text-placeholder;
+}
+
+input:-ms-input-placeholder,
+input.el-input__inner::-webkit-input-placeholder,
+.el-textarea__inner::-webkit-input-placeholder {
+  color: $--color-text-placeholder;
+}
+
+input,
+input.el-input__inner {
+  color: $--color-text-primary;
+}
+
+.el-checkbox__inner{
+  border: 1px solid #747F8A;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.small .el-checkbox__inner{
+  width: 15px!important;
+  height: 15px!important;
+}
+.small .el-checkbox__label{
+  font-size: 12px;
+  padding-left: 5px;
+}
+
+.small .el-checkbox__inner::after{
+  height: 9px;
+  width: 4px;
+  top: 0px;
+  border: 2px solid #fff;
+  border-left: 0;
+  border-top: 0;
+  left: 4px;
+}
+
+.el-checkbox__inner::after{
+  height: 9px;
+  width: 4px;
+  top: 2px;
+  border: 2px solid #fff;
+  border-left: 0;
+  border-top: 0;
+  left: 6px;
+}
+  
+
+.show-pwd {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.detail-form .el-form-item .el-form-item__label{
+  text-align: left !important;
+}  
+
+.detail-form .capital-input .el-input .el-input__inner,
+.detail-form .capital-select .el-select .el-input__inner
+{
+  width: 200px;
+}
+
+.detail-form .capital-textarea .el-textarea .el-textarea__inner{
+  width: 490px;
+}

@@ -1,0 +1,113 @@
+// 字体
+.font12{
+    color: #32373C;
+    font-size: 12px;
+}
+.font14{
+    color: #32373C;
+    font-size: 14px;
+}
+.font16{
+    color:#32373C;
+    font-size: 16px;
+    font-weight: bold;
+}
+.font18{
+    color:#32373C;
+    font-size: 18px;
+    font-weight: bold;
+}
+.font24{
+    color:#32373C;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+// 颜色
+.blue1{
+    color:#0080FF;
+}
+.blue2{
+    color:#00AAFF;
+}
+.gray1{
+    color:#35393C;
+}
+.gray2{
+    color:#636970;
+}
+.gray3{
+    color:#9099A3;
+}
+.gray4{
+    color:#BCC7D1;
+}
+.gray5{
+    color:#F5F7FA;
+}
+.gray6{
+    color:#EBF0F5;
+}
+.other1{
+    color:#EBAD1C;
+}
+.other2{
+    color:#F5276C;
+}
+
+//按钮
+.button1{
+    width:120px;
+    height:32px;
+    background:rgba(0,128,255,1);
+    border-radius:4px;
+}
+.button1:hover{
+    width:120px;
+    height:32px;
+    background:rgba(51,153,255,1);
+    border-radius:4px;
+}
+.button2{
+    width:120px;
+    height:32px;
+    background:rgba(255,255,255,1);
+    border-radius:4px;
+    border:1px solid rgba(116,127,138,1);
+}
+.button2:hover{
+    width:120px;
+    height:32px;
+    background:rgba(230,242,255,1);
+    border-radius:4px;
+    border:1px solid rgba(0,128,255,1);
+}
+.button4{
+    width:100px;
+    height:28px;
+    line-height: 10px;
+    background:rgba(255,255,255,1);
+    border-radius:16px;
+    border:1px solid rgba(0,128,255,1);
+    font-size:14px;
+    font-family:MicrosoftYaHei;
+    color:rgba(0,128,255,1);
+
+}
+
+//input
+.inputSty{
+    height:32px;
+}
+
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+    background-color: #E6F2FF;
+}
+.el-select-dropdown__item.selected{
+    background-color: #3399FF;
+    color:#fff;
+    font-weight: normal;
+}
+.el-select-dropdown{
+    z-index:5000;
+}

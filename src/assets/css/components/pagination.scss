@@ -1,0 +1,19 @@
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
+  background-color: $--color-white;
+  min-width: 40px;
+  border-radius: 4px;
+  &:hover {
+    background-color: $--color-white-ter;
+  }
+}
+
+.el-pagination button,
+.el-pagination span:not([class*=suffix]),
+.el-pager li,
+.el-pager li.btn-quicknext,
+.el-pager li.btn-quickprev {
+  height: 40px;
+  line-height: 40px;
+}

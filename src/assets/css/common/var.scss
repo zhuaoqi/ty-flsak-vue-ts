@@ -1,0 +1,53 @@
+/* Element Chalk Variables */
+
+/* Transition
+-------------------------- */
+$--all-transition: all .3s cubic-bezier(.645,.045,.355,1) !default;
+
+/* Colors
+-------------------------- */
+$--color-white: #fff !default;
+$--color-white-ter: #f5f7fa !default;
+$--color-black: #000 !default;
+$--font-color-base: #333 !default;
+
+
+$--color-blue: #0073E6 !default;
+$--color-blue-light: #0073E6 !default;
+$--color-blue-lighter: #ecf5ff !default;
+
+$--color-red: #e6175c !default;
+
+$--color-success: #67c23a !default;
+$--color-warning: #eb9e05 !default;
+$--color-danger: #EC4141 !default;
+$--color-info: #878d99 !default;
+
+$--color-text-primary: #333 !default;
+$--color-text-regular: #5A5B5D !default;
+$--color-text-secondary: #9B9B9B !default;
+$--color-text-placeholder: #949ea8 !default;
+
+/* Background
+-------------------------- */
+$--background-color-base: #f5f7fa !default;
+
+/* Border
+-------------------------- */
+$--border-width-base: 1px !default;
+$--border-style-base: solid !default;
+$--border-color-base: #ebf0f4 !default;
+$--border-color-dark: #dcdfe6 !default;
+$--border-base: $--border-width-base $--border-style-base $--border-color-base !default;
+$--border-radius-base: 8px !default;
+
+/* Box-shadow
+-------------------------- */
+$--box-shadow-base: 0 0px 20px 0 rgba(170, 172, 181, 0.14);
+
+/* Size
+-------------------------- */
+$--size-base: 14px !default;
+
+$family-sans-serif: -apple-system,"Helvetica Neue", "PingFang SC","微软雅黑", STHeiti,sans-serif !default;
+$family-monospace: "Inconsolata", "Consolas", "Monaco", monospace !default;

@@ -1,0 +1,35 @@
+.el-table td {
+  font-size: 12px;
+}
+
+.el-table th {
+  color: $--font-color-base;
+}
+.el-table-column--selection.hide-check-all{
+  text-align: center;
+}
+.el-table-column--selection.hide-check-all:before{
+  content: '选择';
+  display: inline-block;
+}
+.el-table th>.cell.hide-check-all{
+  display: none;
+}
+.el-table tr.selected {
+  color: #0080ff;
+  background-color: #f5f7fa;
+}
+.class1-el-table .el-table__header tr, .class1-el-table .el-table__header tr th{
+  background-color: #f5f7fa;
+  font-weight: normal;
+  font-size: 13px;
+  color: #81868A;
+}
+.class1-el-table::before{
+  height: 0;
+}
+
+ .class1-el-table .el-table__body tr td{ 
+   color: #222324;
+   border-bottom: none;
+ }

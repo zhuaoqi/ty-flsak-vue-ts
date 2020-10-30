@@ -1,0 +1,38 @@
+{
+  "defaultSeverity": "warning",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "include": [
+    "src"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**"
+    ]
+  },
+  
+  "rules": {
+    "indent": [true, "spaces", 2],
+    "interface-name": false,
+    "no-consecutive-blank-lines": [true, 2],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    // 对齐
+    "align": [true, "parameters", "statements"],
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "no-console": [
+      true,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ]
+  }
+  
+}
