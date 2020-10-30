@@ -3,6 +3,7 @@ import re
 import sys
 import datetime
 from flask import jsonify
+from ..models.utils import check_password_hash, AesCrypt
 from ..config.exts import db
 
 """
@@ -44,13 +45,13 @@ class User(db.Model):
         except:
             return '执行sql错误！'
 
-    def set_password(self, password): # 对明文密码进行加密，返回的是加密后的密码
+    def set_password(password):  # 对明文密码进行加密，返回的是加密后的密码
+        return AesCrypt.encryptUtil(text = password)
 
-        # return generate_password_hash(password)
-        return ''
-    def check_password(self, password):  # 检查密码，传入的是明文密码，会将明文密码进行加密后再进行比对
-        # return check_password_hash(self.password, password)
-        return ''
+    def check_password(password):  # 检查密码，传入的是加密密码，会将明文密码进行加密后再进行比对
+        # print(password, flush=True)
+        password1 = AesCrypt.encryptUtil(text=password)
+        return check_password_hash(password1, password)
 
     def change_password(self, password):  # 修改密码
         self.password = self.set_password(password)

@@ -1,13 +1,11 @@
 module.exports = {
   publicPath: "./", // 公共路径 默认为"/"，建议使用"./"相对路径
   devServer: {   // 本地服务器配置(npm run serve)
-    port: 8080, // 端口
-    host: "localhost", // 域名
     https: false, // 是否开启https
     open: true,	// 是否在开启服务器后自动打开浏览器访问该服务器
     proxy: {
       '/': {
-        target: 'http://localhost:5000/',
+        target: 'http://0.0.0.0:5000/',
         changeOrigin: true,
         pathRewrite: {
           '^/': ''

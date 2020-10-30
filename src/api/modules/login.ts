@@ -15,4 +15,10 @@ export default {
       data,
     });
   },
+  login: (data: any) => {
+    return fetch({
+      url: '/login',
+      data,
+    });
+  },
 };

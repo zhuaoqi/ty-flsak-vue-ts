@@ -5,12 +5,12 @@
       <span>管理员登录</span>
     </div>
     <div class="login_fields">
-      <form @keyup.enter="onSubmit">
+      <form ref="loginForm" @keyup.enter="onSubmit">
         <div class="login_fields__user">
           <div class="icon">
             <img alt="" src="@/assets/images/login/user_icon_copy.png">
           </div>
-          <input name="login" placeholder="用户名" v-model="login.username" maxlength="16" class="username" type="text" autocomplete="off" value="admin">
+          <input name="username" placeholder="用户名" v-model="login.username" maxlength="16" class="username" type="text" autocomplete="off" value="admin">
           <div class="validation">
               <img alt="" src="@/assets/images/login//tick.png">
           </div>
@@ -19,7 +19,7 @@
             <div class="icon">
                 <img alt="" src="@/assets/images/login//lock_icon_copy.png">
             </div>
-            <input name="pwd" v-model="login.password" class="passwordNumder" type="password" placeholder="密码" maxlength="16" autocomplete="off">
+            <input name="password" v-model="login.password" class="passwordNumder" type="password" placeholder="密码" maxlength="16" autocomplete="off">
             <div class="validation">
                 <img alt="" src="@/assets/images/login//tick.png">
             </div>
@@ -150,10 +150,22 @@ export default class Live2d extends Vue {
     this.imgCode =  window.URL.createObjectURL(img)
   }
   private onSubmit() {
-    console.log(this.login.password)
-    console.log(this.login.username)
-    console.log(this.login.code)
-    // this.$router.push("/");
+    if(this.login.username == '' || this.login.password == '' || this.login.code == ''){
+      this.$message({message: '请输入用户名密码或验证码！', type: 'error'})
+      return false
+    }
+    let loginForm:any = this.$refs.loginForm
+    let from = new FormData(loginForm)
+    console.log(from.get('username'))
+    this.$request.login.login(from).then((res: any) => {
+      if(res.status == 0){
+        this.$message({message: res.data || res, type: 'success'})
+      }else {
+        this.getImgcode()
+        this.$message({message: res.msg || res, type: 'error'})
+      }
+    })
+    
   }
   private onRegister() {
     if(this.registe.username == '' || this.registe.password == '' || this.registe.cofimpassword == ''|| this.registe.code == ''){
@@ -168,6 +180,7 @@ export default class Live2d extends Vue {
         if(res.status == 0){
           this.$message({message: res.data || res, type: 'success'})
         }else {
+          this.getImgcode()
           this.$message({message: res.msg || res, type: 'error'})
         }
       })

@@ -1,12 +1,14 @@
 # 导入需要的包文件
+from logging import fatal
 import re
+from re import T
 from flask import Blueprint, request, jsonify, send_file, safe_join, make_response, session, flash
 from flask_restx import Api, Resource
 from io import BytesIO
 import random
 import string
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
-from ...models.utils import UserForm, return_error, return_success
+from ...models.utils import UserForm, return_error, return_success, AesCrypt
 from ...dbs.models import User
 
 
@@ -20,9 +22,11 @@ class register(Resource):
 	def post():
 		username = request.form.get('username')
 		password = request.form.get('password')
-		code = request.form.get('code')
+		code = request.form.get('code').lower()
 		if not all([username, password, code]):
 			return return_error({'msg':'参数不完整！', 'status': 23})
+		elif code != session['imageCode'].lower():
+			return return_error({'status': 50, 'msg': '验证码错误！'})
 		else:
 			if (User.checkUser(username)):
 				return return_error({'status': 20, 'msg': '用户已经注册！'})
@@ -42,9 +46,21 @@ class register(Resource):
 class login(Resource):
 	@staticmethod
 	def post():
-		json_data = request.json
-		print(json_data)
-		return 'hello world'
+		username = request.form.get('username')
+		password = request.form.get('password')
+		code = request.form.get('code').lower()
+		if not all([username, password, code]):
+			return return_error({'msg': '参数不完整！', 'status': 23})
+		elif code != session['imageCode'].lower():
+			return return_error({'status': 50, 'msg': '验证码错误！'})
+		else:
+			user = User.query.filter_by(user_name=username).first()
+			if(user):
+				asss = AesCrypt().encryptUtil(text='yhudsagyhdusgyduyh')
+				print(asss, flush=True)
+				return jsonify(user.__dict__.items())
+			elif user == None:
+				return return_error({'msg': '用户不存在！', 'status': 20})
 
 
 @api_login.route('/imgCode')
@@ -82,6 +98,7 @@ class imageCode():
 			'''生成验证码图形'''
 			code = self.geneText()
 			# 图片大小120×50
+			# print(code, flush=True)
 			width, height = 120, 50
 			# 新图片对象
 			im = Image.new('RGB', (width, height), 'white')

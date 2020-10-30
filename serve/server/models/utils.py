@@ -1,10 +1,15 @@
 
+from Crypto.Cipher import AES
 import io
 import base64
 from flask import Flask, jsonify,  current_app, request
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import requests as req
 from flask_wtf import FlaskForm as Form
+
+
+
+
 
 def generate_token(api_users):
     expiration = 3600
@@ -35,9 +40,46 @@ def urltobase64(url):
 	imgdata = base64.b64encode(ls_f).decode()
 	return imgdata
 
+
+# 加密密码对比验证
+def check_password_hash(password, password2):
+	return password2 == password
+	
 class UserForm(Form):
     regex = r"[0-9a-zA-Z]{6,8}"
 
 
-     
+class AesCrypt():
+	def __init__(self):
+		kess = '12345678abcdefgh'
+		iv = '1234567890123456'
+		print(self, flush=True)
+		model = {'ECB': AES.MODE_ECB, 'CBC': AES.MODE_CBC}['CBC']
+		self.key = self.add_16(kess)
+		self.iv = iv.encode()
+		if model == 'ECB':
+				self.aes = AES.new(self.key, self.model)  # 创建aes对象
+		elif model == 'CBC':
+				self.aes = AES.new(self.key, self.model, self.iv)  # 创建aes对象
 
+	def add_16(self, par):
+		# python3字符串是unicode编码，需要 encode才可以转换成字节型数据
+			par = par.encode('utf-8')
+			while len(par) % 16 != 0:
+					par += b'\x00'
+			return par
+
+	# 加密密码
+	def encryptUtil(self, text):
+		obj = AES.new(self.key, AES.MODE_CBC, self.iv)
+		data_jiami = obj.encrypt(self.add_16(text))
+		print(data_jiami, flush=True)
+		return 'data_jiami'
+		
+	def aesdecrypt(self, text):
+			# CBC解密需要重新创建一个aes对象
+			if self.model == AES.MODE_CBC:
+					self.aes = AES.new(self.key, self.model, self.iv)
+			text = base64.decodebytes(text.encode('utf-8'))
+			self.decrypt_text = self.aes.decrypt(text)
+			return self.decrypt_text.decode('utf-8').strip('\0')
