@@ -1,37 +1,39 @@
+from logging import fatal
 from flask import Blueprint, request, Flask, jsonify
 from flask_restx import Api, Resource
+from sqlalchemy.ext.declarative import base
 
-# app = Flask(__name__)
-# 创建蓝图
-# app_one_api = Api(app=Blueprint('app_one_api', __name__))
+from ...models.utils import UserForm, return_error, return_success, AesCrypt
+
 app_two_api = Blueprint('app_two_api', __name__)
 # 创建api接口 相当于一个独立的小型应用
 api_two = Api(app_two_api)
 
 
 # 建立路由  有了路由可以建立相应的网络请求链接  并且可以对同一个链接发送不同的请求  节省视图的创建
-@api_two.route('/hello')
+@api_two.route('/encryptUtil')
 class Wss(Resource):
     # 接收get请求
     @staticmethod
     def get():
-        print('hello world')
-        return '你好啊！世界！'
+        password = request.args.get('pass')
+        encrypt = AesCrypt().aesdecrypt(text=password)
 
-    # 接收post请求
+        return encrypt
+
+
+@api_two.route('/decode')
+class Wss(Resource):
+    # 接收get请求
     @staticmethod
-    def post():
-        json_data = request.json
-        print(json_data)
-        return 'hello world'
-
-    # 接收put请求
-    @staticmethod
-    def put():
-        print('hello world')
-        return 'hello world'
-
-
+    def get():
+        password = request.args.get('pass')
+        try:
+            encrypt = AesCrypt().aesdecrypt(text=password)
+            return encrypt
+       	except:
+            return False
+    
 @api_two.route('/adda')
 class aad(Resource):
     # 接收get请求

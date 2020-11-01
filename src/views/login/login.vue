@@ -50,7 +50,7 @@
       <span>用户注册</span>
     </div>
     <div class="login_fields">
-      <form ref="registeForm" @keyup.enter="onSubmit">
+      <form ref="registeForm" @keyup.enter="onRegister">
         <div class="login_fields__user">
           <div class="icon">
             <img alt="" src="@/assets/images/login/user_icon_copy.png">
@@ -106,6 +106,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Particle from './js/index'
+import Util from '../../lib/utils/utils';
 
 interface loginInter {
   username: string
@@ -129,7 +130,6 @@ export default class Live2d extends Vue {
   }
   private pageStatus:string= 'login'
  
-  
   private ParticleData :any
   private imgCode: any= null
   private async created() {
@@ -154,12 +154,14 @@ export default class Live2d extends Vue {
       this.$message({message: '请输入用户名密码或验证码！', type: 'error'})
       return false
     }
-    let loginForm:any = this.$refs.loginForm
-    let from = new FormData(loginForm)
-    console.log(from.get('username'))
+    let from = new FormData()
+    from.append('username', this.login.username)
+    from.append('password', Util.encryptUtil(this.login.password))
+    from.append('code', this.login.code)
+    
     this.$request.login.login(from).then((res: any) => {
       if(res.status == 0){
-        this.$message({message: res.data || res, type: 'success'})
+        this.$message({message: res.data || res.msg || res, type: 'success'})
       }else {
         this.getImgcode()
         this.$message({message: res.msg || res, type: 'error'})
@@ -173,9 +175,12 @@ export default class Live2d extends Vue {
       return false
     }
     if(this.registe.password ===  this.registe.cofimpassword){
-      let registeForm:any = this.$refs.registeForm
-      let from = new FormData(registeForm)
-      console.log(from.get('username'))
+      
+      let from = new FormData()
+      from.append('username', this.registe.username)
+      from.append('password', Util.encryptUtil(this.registe.password))
+      from.append('code', this.registe.code)
+      
       this.$request.login.register(from).then((res: any) => {
         if(res.status == 0){
           this.$message({message: res.data || res, type: 'success'})

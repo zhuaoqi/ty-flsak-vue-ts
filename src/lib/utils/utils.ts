@@ -6,14 +6,15 @@ import JQ from 'jquery';
 declare var window: any;
 export default {
   encryptUtil: (data: any) => {
-    const key = '12345678abcdefgh';
-    const crypKey = CryptoJS.enc.Latin1.parse(key);
+    const key = CryptoJS.enc.Utf8.parse('12345678abcdefgh');
+    const crypKey = CryptoJS.enc.Utf8.parse('1234567890123456');
     const iv = crypKey;
-    const encrypted = CryptoJS.AES.encrypt(data, crypKey, {
+    const encrypted = CryptoJS.AES.encrypt(data, key, {
       iv,
       mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.ZeroPadding,
     });
+
     return encrypted.toString();
   },
   // 根据token获取并设置当前登录账号基本信息

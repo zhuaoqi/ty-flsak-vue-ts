@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
 # 导入需要的包文件
+from base64 import encode
 from logging import fatal
+from operator import truth
 import re
 from re import T
 from flask import Blueprint, request, jsonify, send_file, safe_join, make_response, session, flash
@@ -8,7 +11,8 @@ from io import BytesIO
 import random
 import string
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
-from ...models.utils import UserForm, return_error, return_success, AesCrypt
+from flask_restx.api import RE_RULES
+from ...models.utils import UserForm, return_error, return_success, AesCrypt, check_password_hash, decode_password
 from ...dbs.models import User
 
 
@@ -24,19 +28,23 @@ class register(Resource):
 		password = request.form.get('password')
 		code = request.form.get('code').lower()
 		if not all([username, password, code]):
-			return return_error({'msg':'参数不完整！', 'status': 23})
+			return return_error(msg='参数不完整！', status=23)
 		elif code != session['imageCode'].lower():
-			return return_error({'status': 50, 'msg': '验证码错误！'})
+			return return_error(msg='验证码错误！', status=50)
 		else:
 			if (User.checkUser(username)):
-				return return_error({'status': 20, 'msg': '用户已经注册！'})
+				return return_error(status=20, msg='用户已经注册！')
 			else :
-				newUser = User(user_name=username, password=password, token=code )
-				respon = User.addUser(newUser)
-				if(respon == True):
-					return return_success({'msg': '注册成功！'})
+				decode_pass = decode_password(password=password)
+				if (decode_pass != False):
+					newUser = User(user_name=username, password=decode_pass, token=code )
+					respon = User.addUser(newUser)
+					if(respon == True):
+						return return_success(msg= '注册成功！')
+					else:
+						return return_error(msg=respon)
 				else:
-					return return_error({ 'msg': respon })
+					return_error(status=20, msg='密码格式验证错误！')
 		
 	@staticmethod
 	def get():
@@ -50,17 +58,24 @@ class login(Resource):
 		password = request.form.get('password')
 		code = request.form.get('code').lower()
 		if not all([username, password, code]):
-			return return_error({'msg': '参数不完整！', 'status': 23})
+			return return_error(status=23, msg='参数不完整！')
 		elif code != session['imageCode'].lower():
-			return return_error({'status': 50, 'msg': '验证码错误！'})
+			return return_error(status=50, msg='验证码错误！')
 		else:
 			user = User.query.filter_by(user_name=username).first()
 			if(user):
-				asss = AesCrypt().encryptUtil(text='yhudsagyhdusgyduyh')
+				asss = check_password_hash(password=password, password2=user.password)
 				print(asss, flush=True)
-				return jsonify(user.__dict__.items())
+				if(asss == True):
+					return jsonify({
+						'status': 0, 
+						'msg': '登录成功!',
+						'access_token': 'gswhjvdhqgfdytwqegfug7',
+					})
+				else:
+				 	return return_error(msg='用户存在，密码错误！')
 			elif user == None:
-				return return_error({'msg': '用户不存在！', 'status': 20})
+				return return_error(msg='用户不存在！')
 
 
 @api_login.route('/imgCode')

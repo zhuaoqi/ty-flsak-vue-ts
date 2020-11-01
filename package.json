@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "concurrently \"vue-cli-service serve\" \"python serve/run.py\"",
+    "all-serve": "concurrently \"vue-cli-service serve\" \"python serve/run.py\"",
+    "serve": "vue-cli-service serve",
+    "pyserve": "python serve/run.py",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit"
   },
