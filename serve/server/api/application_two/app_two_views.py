@@ -3,7 +3,7 @@ from flask import Blueprint, request, Flask, jsonify
 from flask_restx import Api, Resource
 from sqlalchemy.ext.declarative import base
 
-from ...models.utils import UserForm, return_error, return_success, AesCrypt
+from ...models.utils import return_error, return_success, AesCrypt
 
 app_two_api = Blueprint('app_two_api', __name__)
 # 创建api接口 相当于一个独立的小型应用

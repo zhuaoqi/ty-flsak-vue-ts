@@ -2,7 +2,6 @@
 import re
 import sys
 import datetime
-from flask import jsonify
 from ..models.utils import check_password_hash, AesCrypt
 from ..config.exts import db
 

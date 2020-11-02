@@ -2,19 +2,9 @@
 from Crypto.Cipher import AES
 import io
 import base64
-from flask import Flask, jsonify,  current_app, request
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask import jsonify
 import requests as req
 from flask_wtf import FlaskForm as Form
-from binascii import b2a_hex, a2b_hex
-
-
-def generate_token(api_users):
-    expiration = 3600
-    # expiration是过期时间
-    s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
-    token = s.dumps({'id': api_users.id}).decode('ascii')
-    return token, expiration
 
 
 def return_success(status = 0, msg='', data= None):

@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 # 导入需要的包文件
-from base64 import encode
-from logging import fatal
-from operator import truth
-import re
-from re import T
 from flask import Blueprint, request, jsonify, send_file, safe_join, make_response, session, flash
 from flask_restx import Api, Resource
 from io import BytesIO
@@ -12,7 +7,8 @@ import random
 import string
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
 from flask_restx.api import RE_RULES
-from ...models.utils import UserForm, return_error, return_success, AesCrypt, check_password_hash, decode_password
+from ...models.utils import return_error, return_success, check_password_hash, decode_password
+from ...models.token import create_token, login_required, verify_token
 from ...dbs.models import User
 
 
@@ -67,10 +63,11 @@ class login(Resource):
 				asss = check_password_hash(password=password, password2=user.password)
 				print(asss, flush=True)
 				if(asss == True):
+					token = create_token(user.id)
 					return jsonify({
 						'status': 0, 
 						'msg': '登录成功!',
-						'access_token': 'gswhjvdhqgfdytwqegfug7',
+						'access_token': token,
 					})
 				else:
 				 	return return_error(msg='用户存在，密码错误！')
@@ -78,6 +75,25 @@ class login(Resource):
 				return return_error(msg='用户不存在！')
 
 
+@api_login.route("/userInfo")
+class userInfo(Resource):
+	# 必须登录的装饰器校验
+	@login_required
+	@staticmethod
+	def get():
+		'''
+		用户信息
+		'''
+		token = request.headers["auth-token"]
+		#拿到token，去换取用户信息
+		user = verify_token(token)
+		data = {
+			"username": user.user_name,
+			"password": user.password,
+			"creaate_time": user.creaate_time,
+			"id": user.id
+		}
+		return jsonify(code=0, msg="成功", data=data)
 @api_login.route('/imgCode')
 class imgCode(Resource):
 	@staticmethod
