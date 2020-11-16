@@ -28,6 +28,9 @@ const common = [
   {
     path: '/live2d',
     name: 'live2d',
+    meta: {
+      fullScreen: true,
+    },
     component: () => import('@/views/live2d/live2d.vue'),
   },
   {
@@ -35,6 +38,6 @@ const common = [
     name: 'rotateImg',
     component: () => import('@/views/rotateImg/rotateImg.vue'),
   },
-]; 
+];
 
 export default common;

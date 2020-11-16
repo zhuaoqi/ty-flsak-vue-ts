@@ -24,11 +24,9 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 export default class Home extends Vue {}
 </script>
 <style lang="stylus">
-
 #nav {
-  padding: 30px;
+  line-height 58px
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;

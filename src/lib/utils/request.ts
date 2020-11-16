@@ -14,11 +14,9 @@ const DEFAULT_OPTIONS: any = {
 };
 
 const fetch = ({ data, ...options }: any) => {
-  const TYPE = cookie.get('token_type');
   const TOKEN = cookie.get('access_token');
 
-  axios.defaults.headers.source = cookie.get('source') || 'pc';
-  axios.defaults.headers.authorization = TYPE + ' ' + TOKEN;
+  axios.defaults.headers['auth-token'] = TOKEN;
   axios.defaults.headers.post['content-type'] = DEFAULT_OPTIONS.contentType;
   const axiosInstance: any = axios.create();
   axiosInstance.interceptors.request.use((config: any) => {
@@ -39,22 +37,26 @@ const fetch = ({ data, ...options }: any) => {
       if (response.data.code === undefined || response.data.code === 0) {
         return Promise.resolve(response.data);
       } else {
+        Message(response.toString());
         return Promise.reject({ response });
       }
     })
     .catch((e: any) => {
-      if (!e.response) {
-        Message(JSON.stringify(e));
+       if (!e.response) {
+        Message(e.toString());
         return Promise.reject(new Error(e));
       }
-      const res = e.response;
-      if (res.status === 401) {
+       const res = e.response;
+       if (res.status === 401) {
         utils.clearCookies();
         router.push('/login');
         return Promise.reject(new Error('登录已超时，请重新登录。'));
       } else if (res.status === 403) {
         return Promise.reject(new Error('权限不足，请求被拒绝。'));
       } else if (res.status === 404) {
+        return Promise.reject(new Error('未找到相应资源。'));
+      } else if (res.status === 405) {
+        Message(e.toString(), 'error');
         return Promise.reject(new Error('未找到相应资源。'));
       } else if (res.status === 426) {
         return Promise.reject(res.data);
@@ -72,8 +74,8 @@ const fetch = ({ data, ...options }: any) => {
           message: res.data.msg,
         });
       }
-      Message(JSON.stringify(e));
-      return Promise.reject(e);
+       Message(JSON.stringify(e));
+       return Promise.reject(e);
     });
 };
 

@@ -1,8 +1,25 @@
 <template>
   <div id="app">
-    <router-view/>
+    <app-layout v-if="$route.meta.fullScreen === undefined" />
+    <router-view v-else/>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import appLayout from '@/views/main/app-layout.vue';
+
+@Component({ 
+  components: {
+    appLayout,
+  }
+})
+export default class App extends Vue {
+  private onScroll(e:any){
+    console.log(e)
+  }
+}
+</script>
 
 <style>
 #app {

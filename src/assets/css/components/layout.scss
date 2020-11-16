@@ -1,8 +1,8 @@
 $--width-normal: 1380px;
 $--width-large: 1380px;
-$--width-aside: 180px;
+$--width-aside: 0px;
 $--width-small: 100%;
-$--width-small-aside: 130px;
+$--width-small-aside: 0px;
 .app-layout {
   width: 100vw;
   height: 100vh;
@@ -31,11 +31,11 @@ $--width-small-aside: 130px;
 }
 
 .app-layout__container {
-  padding: 58px 0 0;
   margin: auto;
-  width: $--width-normal;
+  width: $--width-small;
+  padding-top: 58px;
   display: block;
-  min-height: calc(100vh - 45px);
+  min-height: calc(100vh - 58px);
 }
 
 .app-layout__aside {
@@ -51,7 +51,6 @@ $--width-small-aside: 130px;
 }
 
 .app-layout__main {
-  padding: 20px 10px 0;
   margin-left: $--width-aside + 20px;
   overflow: visible;
 }

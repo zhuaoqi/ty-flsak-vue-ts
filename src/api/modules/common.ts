@@ -13,4 +13,10 @@ export default {
       data,
     });
   },
+  userInfo: (data: any) => {
+    return fetch({
+      url: '/userInfo',
+      data,
+    });
+  },
 };

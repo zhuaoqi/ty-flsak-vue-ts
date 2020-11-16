@@ -4,6 +4,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from ..dbs.models import User
 
 def verify_token(token):
+    print(token, flush=True)
     '''
     校验token
     :param token: 
@@ -18,6 +19,7 @@ def verify_token(token):
         return None
     #拿到转换后的数据，根据模型类去数据库查询用户信息
     user = User.query.get(data["id"])
+    print(user, flush=True)
     return user
 
 
@@ -29,7 +31,7 @@ def create_token(api_user):
     '''
     #第一个参数是内部的私钥，这里写在共用的配置信息里了，如果只是测试可以写死
     #第二个参数是有效期(秒)
-    s = Serializer(current_app.config["SECRET_KEY"], expires_in=3600)
+    s = Serializer(current_app.config["SECRET_KEY"], expires_in=36000)
     #接收用户id转换与编码
     token = s.dumps({"id": api_user}).decode("ascii")
     return token
@@ -40,7 +42,7 @@ def login_required(view_func):
     def verify_token(*args, **kwargs):
         try:
             #在请求头上拿到token
-            token = request.headers["z-token"]
+            token = request.headers["auth-token"]
         except Exception:
             #没接收的到token,给前端抛出错误
             #这里的code推荐写一个文件统一管理。这里为了看着直观就先写死了。
@@ -48,10 +50,11 @@ def login_required(view_func):
 
         s = Serializer(current_app.config["SECRET_KEY"])
         try:
+            print(s.loads(token), flush=True)
             s.loads(token)
         except Exception:
             return jsonify(code=4101, msg="登录已过期")
 
         return view_func(*args, **kwargs)
-
+    
     return verify_token

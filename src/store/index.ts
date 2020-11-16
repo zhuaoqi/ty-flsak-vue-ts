@@ -11,12 +11,16 @@ const modules: any = modulesFiles.keys().reduce((moduless: any, modulePath) => {
   return moduless;
 }, {});
 
-const state: any = {};
-export default new Vuex.Store({
+interface IMyClass {
+  [name: string]: any;
+}
+const state: IMyClass = {};
+const store = new Vuex.Store({
   state,
-  mutations: {
-  },
-  actions: {
-  },
+  mutations: {},
+  actions: {},
   modules,
 });
+
+// store.registerModule('common', common);
+export default store;

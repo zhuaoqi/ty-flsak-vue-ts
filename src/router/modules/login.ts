@@ -7,9 +7,10 @@ const login: any[] = [
     name: 'login',
     meta: {
       needNotToken: true,
+      fullScreen: true,
     },
     beforeEnter: (to: any, from: any, next: any) => {
-      store.commit('common/setAsideMenuTree', { subMenus: [] });
+      // store.commit('common/setAsideMenuTree', { subMenus: [] });
       next();
     },
     component: () => import('@/views/login/login.vue'),

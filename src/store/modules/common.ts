@@ -1,17 +1,27 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {
+const state = {
     aaa: 666,
     asideMenuTree: [],
+    userInfo: {},
+  };
+
+const mutations = {
+  setAsideMenuTree(states: any, menuTree: any) {
+    states.asideMenuTree = menuTree;
   },
-  mutations: {
-    setAsideMenuTree(state, menuTree) {
-      state.asideMenuTree = menuTree;
-    },
+  setUserInfo(states: any, data: any) {
+    states.userInfo = data;
   },
-  actions: {},
-});
+};
+
+const actions = {};
+
+const getters = {};
+
+export default {
+  state,
+  mutations,
+  actions,
+  getters,
+  namespaced: true,
+};

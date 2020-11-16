@@ -61,7 +61,6 @@ class login(Resource):
 			user = User.query.filter_by(user_name=username).first()
 			if(user):
 				asss = check_password_hash(password=password, password2=user.password)
-				print(asss, flush=True)
 				if(asss == True):
 					token = create_token(user.id)
 					return jsonify({
@@ -78,22 +77,26 @@ class login(Resource):
 @api_login.route("/userInfo")
 class userInfo(Resource):
 	# 必须登录的装饰器校验
-	@login_required
 	@staticmethod
-	def get():
+	def post():
 		'''
 		用户信息
 		'''
+		print(45454, flush=True)
 		token = request.headers["auth-token"]
 		#拿到token，去换取用户信息
 		user = verify_token(token)
-		data = {
-			"username": user.user_name,
-			"password": user.password,
-			"creaate_time": user.creaate_time,
-			"id": user.id
-		}
-		return jsonify(code=0, msg="成功", data=data)
+		print(user, flush=True)
+		if (user != None):
+			data = {
+				"username": user.user_name,
+				"password": user.password,
+				"create_time": user.create_time,
+				"id": user.id
+			}
+			return jsonify(code=0, msg="成功", data=data)
+		else:
+			return make_response(jsonify({'msg': '登录超时！'}), 401)
 @api_login.route('/imgCode')
 class imgCode(Resource):
 	@staticmethod

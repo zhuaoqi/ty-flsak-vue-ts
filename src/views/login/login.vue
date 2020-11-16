@@ -1,5 +1,6 @@
 <template>
 <div ref="particle" class="particle" style="width: 100%; height: 100%">
+  <canvas id="gui"></canvas>
   <div v-if="pageStatus == 'login'" class="login">
     <div class="login_title">
       <span>管理员登录</span>
@@ -105,9 +106,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import * as dat from 'dat.gui';
+import init from '../live2d/assets/gui.js'
 import Particle from './js/index'
+import Cookie from '@/lib/utils/cookie'
 import Util from '../../lib/utils/utils';
-
 interface loginInter {
   username: string
   password: string
@@ -118,6 +121,7 @@ interface loginInter {
 @Component
 export default class Live2d extends Vue {
   public $request!: any
+  private gui:any
   private login:loginInter = {
     username: '' ,
     password: '' ,
@@ -133,6 +137,7 @@ export default class Live2d extends Vue {
   private ParticleData :any
   private imgCode: any= null
   private async created() {
+    Util.clearCookies()
     this.getImgcode()
   }
   private mounted() {
@@ -143,6 +148,10 @@ export default class Live2d extends Vue {
       density: 8000,
       particleRadius: 5
     });
+    this.gui = new dat.GUI();
+    this.$nextTick(() =>{
+      init(this.gui)
+    })
     
   }
   private async getImgcode() {
@@ -162,6 +171,9 @@ export default class Live2d extends Vue {
     this.$request.login.login(from).then((res: any) => {
       if(res.status == 0){
         this.$message({message: res.data || res.msg || res, type: 'success'})
+        Cookie.set('access_token', res.access_token)
+        Util.setUserInfo()
+        this.$router.push({path: '/'})
       }else {
         this.getImgcode()
         this.$message({message: res.msg || res, type: 'error'})
@@ -201,6 +213,12 @@ export default class Live2d extends Vue {
 }
 </script>
 <style scoped>
+#gui {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .5;
+}
 input:-webkit-autofill,
     input:-webkit-autofill:hover,
     input:-webkit-autofill:focus,
